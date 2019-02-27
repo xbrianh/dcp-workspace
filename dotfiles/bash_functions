@@ -1,0 +1,38 @@
+
+function glog() {
+	if [ $# -eq 1 ]; then
+		branch=$1
+	else
+		branch=""
+	fi
+	count=80
+	git log --pretty=oneline --color=always $branch | head -n $count
+}
+
+function vact() {
+		# simple python virtual environment management
+
+		if [ -z $1 ]; then
+			deactivate
+			return
+		fi
+
+		vpath="${VIRTUAL_ENV_HOME}/${1}"
+
+		if ! [ -d "${vpath}" ]; then
+			echo "No virtual environment named '$1'"
+			while true; do
+				read -p "create? [Y/n] " yn
+				case $yn in
+					[Yy]* ) /usr/local/bin/virtualenv -p "/usr/bin/python3" $vpath; break;;
+					[Nn]* ) break;;
+					* ) echo "yes or no goddamnit";;
+				esac
+			done
+		fi
+
+		if [ -d "${vpath}" ]; then
+			source "${vpath}/bin/activate"
+			return
+		fi
+}

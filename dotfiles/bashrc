@@ -1,0 +1,26 @@
+set -a
+PATH=$PATH:~/bin
+SVN_EDITOR=vim
+VIRTUAL_ENV_HOME="${HOME}/.virtualenvs"
+set +a
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+set -o vi
+export PS1="workspace \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]>"
+
+function prompt_command() {
+  if [[ -f environment ]]; then
+    source environment
+  fi
+  if [[ -f environment.${DEPLOYMENT} ]]; then
+    source environment.${DEPLOYMENT}
+  fi
+}
+PROMPT_COMMAND=prompt_command
+
+alias gstat='git status ; echo ; git log --pretty=oneline --color=always | head'
+alias ls='ls --color'
+source ~/.bash_functions
