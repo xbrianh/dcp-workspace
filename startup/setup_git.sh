@@ -7,6 +7,8 @@ mv git-completion.bash ~/.git-completion.bash
 git clone https://github.com/awslabs/git-secrets.git
 (cd git-secrets && sudo make install)
 git secrets --register-aws --global
+git secrets --install ~/.git-templates/git-secrets
+git config --global init.templateDir ~/.git-templates/git-secrets
 
 git config --global credential.helper store
 
