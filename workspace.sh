@@ -28,7 +28,7 @@ if [[ -z $wid ]]; then
         docker cp $name $wid:/home/dcp/.$(basename $name)
     done
     
-    docker cp startup $wid:/home/dcp/.startup
+    docker cp ${DCP_WORKSPACE_HOME}/startup $wid:/home/dcp/.startup
     docker exec -it -u 0 $wid chown -R dcp:dcp /home/dcp
     docker exec -it $wid /home/dcp/.startup/startup.sh
 fi

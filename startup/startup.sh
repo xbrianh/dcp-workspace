@@ -30,13 +30,14 @@ if [[ -d ~/.aws ]]; then
 fi
 
 # Create a venv
+venv_name=dcp
 mkdir ~/.virtualenvs
-/usr/local/bin/virtualenv -p /usr/bin/python3 ~/.virtualenvs/venv
-echo "source ~/.virtualenvs/venv/bin/activate" >> ~/.bashrc
+/usr/local/bin/virtualenv -p /usr/bin/python3 ~/.virtualenvs/${venv_name}
+echo "source ~/.virtualenvs/${venv_name}/bin/activate" >> ~/.bashrc
 
 # Clone repo
 repo=$(cat ~/.startup/config.json | jq -r .repository)
 branch=$(cat ~/.startup/config.json | jq -r .deployments.${DEPLOYMENT}.branch)
 git clone --branch ${branch} $repo
 repo_home=$(basename $repo | cut -d '.' -f 1)
-(cd $repo_home && ~/.virtualenvs/venv/bin/pip install -r requirements-dev.txt)
+(cd $repo_home && ~/.virtualenvs/${venv_name}/bin/pip install -r requirements-dev.txt)
