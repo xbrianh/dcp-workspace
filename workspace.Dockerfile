@@ -48,7 +48,7 @@ RUN python3 -m pip install --upgrade awscli virtualenv==16.0.0
 
 # Create a user
 RUN groupadd -g 999 dcp && useradd --home /home/dcp -m -s /bin/bash -g dcp -G sudo dcp
-RUN mkdir /HumanCellAtlas && chown dcp /HumanCellAtlas
+RUN bash -c "echo 'dcp ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
 USER dcp
 WORKDIR /home/dcp
 ENV PATH /home/dcp/bin:${PATH}

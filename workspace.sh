@@ -14,8 +14,6 @@ if [[ -z $wid ]]; then
     
     wid=$(docker run --name $workspace_name -it --env DEPLOYMENT=$deployment -d xbrianh/workspace)
     
-    docker exec -it -u 0 $wid bash -c "echo 'dcp ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
-    
     for name in ".git-credentials" ".aws" ".google" ".gitconfig"; do
         filename=${HOME}/${name}
         if [[ -d $filename || -f $filename ]]; then
