@@ -54,6 +54,18 @@ WORKDIR /home/dcp
 ENV PATH /home/dcp/bin:${PATH}
 RUN mkdir -p /home/dcp/bin
 
+# Configure git
+RUN git clone https://github.com/awslabs/git-secrets.git \
+    && (cd git-secrets && sudo make install) \
+    && git secrets --register-aws --global \
+    && git secrets --install ~/.git-templates/git-secrets \
+    && git secrets --add --global 'private_key' \
+    && git secrets --add --global 'private_key_id' \
+    && git config --global init.templateDir ~/.git-templates/git-secrets
+RUN wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+    && mv git-completion.bash ~/.git-completion.bash \
+    && echo "source ~/.git-completion.bash" >> ~/.bashrc
+
 # Configure vim
 RUN git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 RUN vim-addons install python-jedi
