@@ -23,4 +23,5 @@ PROMPT_COMMAND=prompt_command
 
 alias gstat='git status ; echo ; git log --pretty=oneline --color=always | head'
 alias ls='ls --color'
+source ~/.git-completion.bash
 source ~/.bash_functions
