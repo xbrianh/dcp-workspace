@@ -1,25 +1,73 @@
 {
-  "repository": "https://github.com/HumanCellAtlas/data-store.git",
-  "deployments": {
+  "profiles": {
     "dev": {
-      "branch": "master",
       "aws_profile": "hca-dev",
       "gcp_project": "human-cell-atlas-travis-test"
     },
     "integration": {
-      "branch": "integration",
       "aws_profile": "hca-dev",
       "gcp_project": "human-cell-atlas-travis-test"
     },
     "staging": {
-      "branch": "staging",
       "aws_profile": "hca-dev",
       "gcp_project": "human-cell-atlas-travis-test"
     },
     "prod": {
-      "branch": "prod",
       "aws_profile": "hca-prod",
       "gcp_project": "hca-dcp-production"
     }
-  }
+  },
+  "repositories": [
+	{
+	  "url": "https://github.com/HumanCellAtlas/data-store.git",
+	  "deployments": {
+	    "dev": {
+	      "branch": "master"
+	    },
+	    "integration": {
+	      "branch": "integration"
+	    },
+	    "staging": {
+	      "branch": "staging"
+	    },
+	    "prod": {
+	      "branch": "prod"
+	    }
+	  }
+	},
+	{
+	  "url": "https://github.com/HumanCellAtlas/dcp-cli.git",
+	  "deployments": {
+	    "dev": {
+	      "branch": "master"
+	    },
+	    "integration": {
+	      "branch": "integration"
+	    },
+	    "staging": {
+	      "branch": "staging"
+	    },
+	    "prod": {
+	      "branch": "prod"
+	    }
+	  }
+	},
+	{
+	  "url": "https://github.com/HumanCellAtlas/allspark.git",
+	  "deployments": {
+	    "dev": {
+	      "branch": "master"
+	    },
+	    "integration": {
+	      "branch": "master"
+	    },
+	    "staging": {
+	      "branch": "master"
+	    },
+	    "prod": {
+	      "branch": "prod"
+	    }
+	  }
+	}
+  ]
 }

@@ -18,7 +18,12 @@ function prompt_command() {
   if [[ -f environment.${DEPLOYMENT} ]]; then
     source environment.${DEPLOYMENT}
   fi
+  venv_dir=~/.virtualenvs/$(basename $(pwd -P))_venv
+  if [[ -d ${venv_dir} ]]; then
+    source ${venv_dir}/bin/activate
+  fi
 }
+
 PROMPT_COMMAND=prompt_command
 
 alias gstat='git status ; echo ; git log --pretty=oneline --color=always | head'

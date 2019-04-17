@@ -14,6 +14,7 @@ if [[ -z $wid ]]; then
     
     wid=$(docker run --name $workspace_name -it --env DEPLOYMENT=$deployment -d xbrianh/workspace)
     
+    docker exec -it $wid git config --global credential.helper store
     for name in ".git-credentials" ".aws" ".google"; do
         filename=${HOME}/${name}
         if [[ -d $filename || -f $filename ]]; then
@@ -25,13 +26,14 @@ if [[ -z $wid ]]; then
     for name in $DCP_WORKSPACE_HOME/dotfiles/*; do
         docker cp $name $wid:/home/dcp/.$(basename $name)
     done
+
+    docker exec -it $wid git config --global credential.helper store
+    docker exec -it $wid git config --global user.name $(git config user.name)
+    docker exec -it $wid git config --global user.email $(git config user.email)
     
     docker cp ${DCP_WORKSPACE_HOME}/startup $wid:/home/dcp/.startup
     docker exec -it -u 0 $wid chown -R dcp:dcp /home/dcp
     docker exec -it $wid /home/dcp/.startup/startup.sh
-
-    docker exec -it $wid  git config --global user.name $(git config user.name)
-    docker exec -it $wid  git config --global user.email $(git config user.email)
 fi
 
 docker exec -it $wid /bin/bash
