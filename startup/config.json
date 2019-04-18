@@ -19,40 +19,6 @@
   },
   "repositories": [
 	{
-	  "url": "https://github.com/HumanCellAtlas/data-store.git",
-	  "deployments": {
-	    "dev": {
-	      "branch": "master"
-	    },
-	    "integration": {
-	      "branch": "integration"
-	    },
-	    "staging": {
-	      "branch": "staging"
-	    },
-	    "prod": {
-	      "branch": "prod"
-	    }
-	  }
-	},
-	{
-	  "url": "https://github.com/HumanCellAtlas/dcp-cli.git",
-	  "deployments": {
-	    "dev": {
-	      "branch": "master"
-	    },
-	    "integration": {
-	      "branch": "integration"
-	    },
-	    "staging": {
-	      "branch": "staging"
-	    },
-	    "prod": {
-	      "branch": "prod"
-	    }
-	  }
-	},
-	{
 	  "url": "https://github.com/HumanCellAtlas/allspark.git",
 	  "deployments": {
 	    "dev": {
