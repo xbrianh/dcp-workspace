@@ -18,7 +18,7 @@ RUN apt-get update --quiet \
         default-jre \
         gettext \
         git \
-		bash-completion \
+        bash-completion \
         httpie \
         jq \
         make \
@@ -28,19 +28,30 @@ RUN apt-get update --quiet \
         unzip \
         wget \
         zlib1g-dev \
-		screen \
-		gnupg \
-		curl \
-		python3-jedi \
-		vim \
-		vim-python-jedi \
-		vim-addon-manager \
-		sudo
+        screen \
+        gnupg \
+        curl \
+        python3-jedi \
+        vim \
+        vim-python-jedi \
+        vim-addon-manager \
+        sudo
 
 # Install the Google Cloud SDK
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update --quiet && apt-get install --assume-yes --no-install-recommends google-cloud-sdk
+
+# Install kubectl, helm, and tiller (needed for allspark EKS cluster management)
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update --quiet && apt-get install --assume-yes --no-install-recommends kubectl
+RUN curl -o /usr/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator \
+    && chmod +x /usr/bin/aws-iam-authenticator \
+    && cp /usr/bin/aws-iam-authenticator /usr/bin/heptio-authenticator-aws
+RUN wget https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz \
+    && tar -zxvf helm-v2.11.0-linux-amd64.tar.gz \
+    && mv linux-amd64/helm /usr/bin/helm && chmod +x /usr/bin/helm \
+    && mv linux-amd64/tiller /usr/bin/tiller && chmod +x /usr/bin/tiller
 
 # Configure some python components
 RUN python3 -m pip install --upgrade pip setuptools
