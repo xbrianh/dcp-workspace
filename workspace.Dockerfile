@@ -35,6 +35,7 @@ RUN apt-get update --quiet \
         vim \
         vim-python-jedi \
         vim-addon-manager \
+        ssh \
         sudo
 
 # Install the Google Cloud SDK
