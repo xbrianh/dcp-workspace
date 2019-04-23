@@ -42,13 +42,13 @@
 	      "branch": "master"
 	    },
 	    "integration": {
-	      "branch": "integration"
+	      "branch": "master"
 	    },
 	    "staging": {
-	      "branch": "staging"
+	      "branch": "master"
 	    },
 	    "prod": {
-	      "branch": "prod"
+	      "branch": "master"
 	    }
 	  }
 	},
