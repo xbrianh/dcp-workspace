@@ -12,7 +12,7 @@ wid=$(docker ps -a --latest --filter "name=${workspace_name}" --format="{{.ID}}"
 if [[ -z $wid ]]; then
     docker pull xbrianh/workspace
     
-    wid=$(docker run --name $workspace_name -it --env DEPLOYMENT=$deployment -d xbrianh/workspace)
+    wid=$(docker run --mount type=bind,source=${DCP_WORKSPACE_HOME}/shared,target=/home/dcp/shared --name $workspace_name -it --env DEPLOYMENT=$deployment -d xbrianh/workspace)
     
     docker exec -it $wid git config --global credential.helper store
     for name in ".git-credentials" ".aws" ".google"; do
