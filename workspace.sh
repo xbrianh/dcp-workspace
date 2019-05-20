@@ -9,6 +9,9 @@ deployment=${1:-dev}
 workspace_name="dcp-workspace-${deployment}"
 wid=$(docker ps -a --latest --filter "name=${workspace_name}" --format="{{.ID}}")
 
+git config user.name > /dev/null || { echo 'Please configure a git user name with `git config --global user.name _my_git_username_`'; exit 1; }
+git config user.email > /dev/null || { echo 'Please configure a git user email with `git config --global user.email _my_git_email_`'; exit 1; }
+
 if [[ -z $wid ]]; then
     docker pull xbrianh/workspace
     
@@ -36,4 +39,5 @@ if [[ -z $wid ]]; then
     docker exec -it $wid /home/dcp/.startup/startup.sh
 fi
 
+docker start ${wid} || echo
 docker exec -it $wid /bin/bash
