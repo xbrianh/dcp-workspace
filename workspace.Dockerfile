@@ -36,7 +36,8 @@ RUN apt-get update --quiet \
         vim-python-jedi \
         vim-addon-manager \
         ssh \
-        sudo
+        sudo \
+        groff
 
 # Install the Google Cloud SDK
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list

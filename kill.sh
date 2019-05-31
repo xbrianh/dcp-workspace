@@ -9,5 +9,5 @@ if [[ -z $wid ]]; then
     exit 1
 fi
 
-docker kill $wid
+docker kill $wid > /dev/null 2>&1 || :
 docker rm $wid
