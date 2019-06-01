@@ -4,6 +4,11 @@ while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 export DCP_WORKSPACE_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 set -a
+AWS_DEFAULT_REGION="us-east-1"
 DCP_WORKSPACE_IMAGE_FILE="image.Dockerfile"
 DCP_WORKSPACE_IMAGE_NAME="xbrianh/workspace"
+# `{account_id}`, if present, will be replaced with the account ID associated
+# with the AWS credentials used to deploy. It can be safely omitted.
+TERRAFORM_BUCKET_TEMPLATE="bhannafi-{account_id}-terraform"
+AWS_SDK_LOAD_CONFIG=1 # Needed for Terraform to correctly use AWS assumed roles
 set +a

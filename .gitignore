@@ -2,3 +2,7 @@ shared
 key*
 .DS_Store
 *.swp
+.terraform
+terraform/**/backend.tf
+terraform/**/variables.tf
+terraform/**/providers.tf

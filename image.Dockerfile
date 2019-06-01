@@ -12,32 +12,34 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update --quiet \
-    && apt-get install --assume-yes --no-install-recommends \
-        ca-certificates \
-        build-essential \
-        default-jre \
-        gettext \
-        git \
-        bash-completion \
-        httpie \
-        jq \
-        make \
-        moreutils \
-        python3-pip \
-        python3.6-dev \
-        unzip \
-        wget \
-        zlib1g-dev \
-        screen \
-        gnupg \
-        curl \
-        python3-jedi \
-        vim \
-        vim-python-jedi \
-        vim-addon-manager \
-        ssh \
-        sudo \
-        groff
+  && apt-get install --assume-yes --no-install-recommends \
+    ca-certificates \
+    build-essential \
+    default-jre \
+    gettext \
+    git \
+    bash-completion \
+    httpie \
+    jq \
+    make \
+    moreutils \
+    python3-pip \
+    python3.6-dev \
+    zip \
+    unzip \
+    wget \
+    zlib1g-dev \
+    screen \
+    gnupg \
+    curl \
+    python3-jedi \
+    vim \
+    vim-python-jedi \
+    vim-addon-manager \
+    ssh \
+    sudo \
+    groff \
+    less
 
 # Install the Google Cloud SDK
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -96,3 +98,21 @@ RUN wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linu
 # http://click.pocoo.org/5/python3/
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
+# Copy public key into container as an authorized key
+RUN mkdir /home/dcp/.ssh
+ADD key.pub /home/dcp/.ssh/authorized_keys
+
+# Install mosh
+RUN sudo apt-get update --quiet && sudo apt-get install --assume-yes locales mosh
+RUN sudo locale-gen en_US.UTF-8
+
+# Add the entrypoint script
+ADD entrypoint.sh /home/dcp/bin/entrypoint.sh
+
+# Make sure the user ownes everything
+RUN ["sudo", "chown", "-R", "dcp:dcp", "/home/dcp"]
+
+EXPOSE 22
+EXPOSE 60000-61000
+ENTRYPOINT ["sudo", "/home/dcp/bin/entrypoint.sh"]
