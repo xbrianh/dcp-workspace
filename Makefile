@@ -1,10 +1,12 @@
+include common.mk
+
 all: image
 
 image:
-	docker build -f workspace.Dockerfile -t xbrianh/workspace .
+	docker build -f $(DCP_WORKSPACE_IMAGE_FILE) -t $(DCP_WORKSPACE_IMAGE_NAME) .
 
 publish: image
-	docker push xbrianh/workspace
+	docker push $(DCP_WORKSPACE_IMAGE_NAME)
 
 prune:
 	docker container prune -f
