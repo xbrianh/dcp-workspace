@@ -1,4 +1,4 @@
-include common.mk
+include ../common.mk
 
 all: image
 
@@ -11,8 +11,4 @@ key:
 publish: image
 	docker push $(DCP_WORKSPACE_IMAGE_NAME)
 
-prune:
-	docker container prune -f
-	docker image prune -f
-
-.PHONY: docker prune
+.PHONY: image publish

@@ -107,12 +107,22 @@ ADD key.pub /home/dcp/.ssh/authorized_keys
 RUN sudo apt-get update --quiet && sudo apt-get install --assume-yes locales mosh
 RUN sudo locale-gen en_US.UTF-8
 
-# Add the entrypoint script
-ADD entrypoint.sh /home/dcp/bin/entrypoint.sh
+# Install dotfiles
+ADD bash_functions /home/dcp/.bash_functions
+ADD bashrc /home/dcp/.bashrc
+ADD vimrc /home/dcp/.vimrc
 
 # Make sure the user ownes everything
 RUN ["sudo", "chown", "-R", "dcp:dcp", "/home/dcp"]
 
+# disable login messages so scp works
+RUN sudo chmod -x /etc/update-motd.d/*
+
+# Expose ssh port
 EXPOSE 22
+
+# Expose mosh ports
 EXPOSE 60000-61000
-ENTRYPOINT ["sudo", "/home/dcp/bin/entrypoint.sh"]
+
+# Add the entrypoint script, but don't assign it
+ADD entrypoint.sh /home/dcp/bin/entrypoint.sh

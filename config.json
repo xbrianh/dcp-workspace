@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "dev": {
+      "aws_profile": "hca-dev",
+      "gcp_project": "human-cell-atlas-travis-test"
+    },
+    "integration": {
+      "aws_profile": "hca-dev",
+      "gcp_project": "human-cell-atlas-travis-test"
+    },
+    "staging": {
+      "aws_profile": "hca-dev",
+      "gcp_project": "human-cell-atlas-travis-test"
+    },
+    "prod": {
+      "aws_profile": "hca-prod",
+      "gcp_project": "hca-dcp-production"
+    }
+  },
+  "git": {
+    "name": "frank jones",
+	"email": "none@none"
+  },
+  "repositories": []
+}
