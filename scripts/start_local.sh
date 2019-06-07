@@ -5,7 +5,7 @@ config=$1
 
 docker pull xbrianh/workspace
 docker run --mount type=bind,source=${DCP_WORKSPACE_HOME}/shared,target=/home/dcp/shared \
-	   --name $workspace_name -it --env DEPLOYMENT=${DEPLOYMENT} -p 22 \
+	   --name $workspace_name -it --env DEPLOYMENT=${DEPLOYMENT} -p 22 -d \
 	   --env DEPLOYMENT=${DEPLOYMENT} \
 	   xbrianh/workspace /home/dcp/bin/entrypoint.sh "${config}"
 

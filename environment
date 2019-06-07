@@ -5,6 +5,7 @@ export DCP_WORKSPACE_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 set -a
 AWS_DEFAULT_REGION="us-east-1"
+DCP_WORKSPACE_PLATFORM="local"
 DCP_WORKSPACE_IMAGE_FILE="image.Dockerfile"
 DCP_WORKSPACE_IMAGE_NAME="xbrianh/workspace"
 # `{account_id}`, if present, will be replaced with the account ID associated

@@ -8,7 +8,8 @@ from subprocess import run, PIPE
 import boto3
 
 ecs = boto3.client("ecs")
-home = os.environ['DCP_WORKSPACE_HOME']
+ec2 = boto3.client("ec2")
+
 config = sys.argv[1]
 
 subnets = run(
@@ -41,23 +42,19 @@ resp = ecs.run_task(
                 }
             ]
         }],
-    }
+    },
 )
 
-task = resp['tasks'][0]['taskArn'] 
-print(task)
+task = resp['tasks'][0]['taskArn']
 
-for _ in range(60):
-    status = resp['tasks'][0]['lastStatus']
-    if "RUNNING" == status:
-        break
-    elif "STOPPED" == status or "DEPROVISIONING" == status:
-        raise Exception("Failed to start Fargate container")
-    else:
-        time.sleep(5)
-        resp = ecs.describe_tasks(cluster="default", tasks=[task])
-        print(resp['tasks'][0]['lastStatus'])
+filepath=f"{os.environ['DCP_WORKSPACE_HOME']}/.fargate_status.json"
+if os.path.isfile(filepath):
+    with open(filepath, "r") as fh:
+        status = json.loads(fh.read())
 else:
-    raise Exception("Failed to start Fargate container")
+    status = dict()
+status[os.environ['workspace_name']] = task
+with open(filepath, "w") as fh:
+    fh.write(json.dumps(status))
 
-print(resp['tasks'][0]['attachments'])
+print(task)

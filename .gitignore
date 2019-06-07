@@ -6,3 +6,4 @@ key*
 terraform/**/backend.tf
 terraform/**/variables.tf
 terraform/**/providers.tf
+.fargate_status.json
