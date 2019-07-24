@@ -9,7 +9,7 @@ locals {
     "env"       , "dev",
     "service"   , "dss",
     "owner"     , "bhannafi@ucsc.edu"
-  )}",
+  )}"
 }
 
 resource "aws_iam_role" "task_executor" {
