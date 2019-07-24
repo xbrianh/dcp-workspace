@@ -29,8 +29,12 @@ if [[ -d ~/.aws ]]; then
     echo "export AWS_PROFILE=${aws_profile}" >> ~/.bashrc
 fi
 
-# Clone repos
+venv="dcp"
 mkdir ~/.virtualenvs
+venv_dir=~/.virtualenvs/${venv}
+/usr/local/bin/virtualenv -p /usr/bin/python3 ${venv_dir}
+
+# Clone repos
 for repo in $(cat ~/.startup/config.json | jq -r .repositories[].url); do
     branch=$(cat ~/.startup/config.json | jq -r --arg n $repo '.repositories[] | select(.url==$n)' | jq -r .deployments.${DEPLOYMENT}.branch)
     git clone --branch ${branch} $repo
@@ -38,10 +42,9 @@ for repo in $(cat ~/.startup/config.json | jq -r .repositories[].url); do
 	repo_home=$(pwd -P)/$repo_name
     venv_dir=~/.virtualenvs/${repo_name}_venv
 	/usr/local/bin/virtualenv -p /usr/bin/python3 ${venv_dir}
-    if [[ -e $repo_home/requirements.txt ]]; then
-        (cd $repo_home && ${venv_dir}/bin/pip install -r requirements.txt)
-    fi
-    if [[ -e ${repo_home}/requirements-dev.txt ]]; then
+    if [[ -e $repo_home/requirements-dev.txt ]]; then
         (cd $repo_home && ${venv_dir}/bin/pip install -r requirements-dev.txt)
+    elif [[ -e ${repo_home}/requirements.txt ]]; then
+        (cd $repo_home && ${venv_dir}/bin/pip install -r requirements.txt)
     fi
 done

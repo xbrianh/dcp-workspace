@@ -34,40 +34,6 @@
 	      "branch": "prod"
 	    }
 	  }
-	},
-	{
-	  "url": "https://github.com/HumanCellAtlas/dcp-cli.git",
-	  "deployments": {
-	    "dev": {
-	      "branch": "master"
-	    },
-	    "integration": {
-	      "branch": "master"
-	    },
-	    "staging": {
-	      "branch": "master"
-	    },
-	    "prod": {
-	      "branch": "master"
-	    }
-	  }
-	},
-	{
-	  "url": "https://github.com/HumanCellAtlas/allspark.git",
-	  "deployments": {
-	    "dev": {
-	      "branch": "master"
-	    },
-	    "integration": {
-	      "branch": "master"
-	    },
-	    "staging": {
-	      "branch": "master"
-	    },
-	    "prod": {
-	      "branch": "prod"
-	    }
-	  }
 	}
   ]
 }
