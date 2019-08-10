@@ -4,6 +4,5 @@ while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 export DCP_WORKSPACE_HOME="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 set -a
-DCP_WORKSPACE_IMAGE_FILE="image.Dockerfile"
 DCP_WORKSPACE_IMAGE_NAME="xbrianh/workspace"
 set +a

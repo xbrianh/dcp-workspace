@@ -3,13 +3,13 @@ include common.mk
 all: image
 
 image:
-	docker build -f $(DCP_WORKSPACE_IMAGE_FILE) -t $(DCP_WORKSPACE_IMAGE_NAME) .
+	make -C image
 
 publish: image
-	docker push $(DCP_WORKSPACE_IMAGE_NAME)
+	make -C image publish
 
 prune:
 	docker container prune -f
 	docker image prune -f
 
-.PHONY: docker prune
+.PHONY: image publish prune
