@@ -89,8 +89,8 @@ RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES
     && tar -xzf elasticsearch-${ES_VERSION}.tar.gz -C /home/dcp
 
 # Grab Terraform
-RUN wget https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip \
-    && unzip terraform_0.12.6_linux_amd64.zip -d /home/dcp/bin
+RUN wget https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip \
+    && unzip terraform_0.12.8_linux_amd64.zip -d /home/dcp/bin
 
 # Address locale problem, see "Python 3 Surrogate Handling":
 # http://click.pocoo.org/5/python3/
