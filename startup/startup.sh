@@ -1,4 +1,6 @@
 #!/bin/bash
+echo $(ls -alh ${tmp_private_key})
+
 # This script is intended to run once during container startup
 set -euo pipefail
 
@@ -40,11 +42,4 @@ for repo in $(cat ~/.startup/config.json | jq -r .repositories[].url); do
     git clone --branch ${branch} $repo
     repo_name=$(basename $repo | cut -d '.' -f 1)
 	repo_home=$(pwd -P)/$repo_name
-    venv_dir=~/.virtualenvs/${repo_name}_venv
-	/usr/local/bin/virtualenv -p /usr/bin/python3 ${venv_dir}
-    if [[ -e $repo_home/requirements-dev.txt ]]; then
-        (cd $repo_home && ${venv_dir}/bin/pip install -r requirements-dev.txt)
-    elif [[ -e ${repo_home}/requirements.txt ]]; then
-        (cd $repo_home && ${venv_dir}/bin/pip install -r requirements.txt)
-    fi
 done

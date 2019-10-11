@@ -27,3 +27,4 @@ alias ls='ls --color'
 source ~/.git-completion.bash
 source ~/.bash_functions
 source ~/.virtualenvs/dcp/bin/activate
+complete -C '/usr/local/bin/aws_completer' aws
