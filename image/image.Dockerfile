@@ -37,6 +37,7 @@ RUN apt-get update --quiet \
         vim-addon-manager \
         ssh \
         sudo \
+		zip \
         groff
 
 # Install the Google Cloud SDK
